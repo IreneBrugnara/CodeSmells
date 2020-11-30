@@ -2,15 +2,15 @@ package codesmells;
 
 public class Tile
 {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private Mark mark;
 
     public static Tile empty(int x, int y) {
-        return new Tile(x, y, ' ', Mark.NONE);
+        return new Tile(x, y, Mark.NONE);
     }
 
-    public Tile(int x, int y, char symbol, Mark mark) {
+    private Tile(int x, int y, Mark mark) {
         this.x = x;
         this.y = y;
         this.mark = mark;
@@ -32,7 +32,7 @@ public class Tile
         return mark == other.mark;
     }
 
-    public boolean isEmpty() {
-        return mark == Mark.NONE;
+    public boolean isMarked() {
+        return mark != Mark.NONE;
     }
 }

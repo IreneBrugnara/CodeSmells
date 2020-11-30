@@ -19,7 +19,7 @@ public class Board {
     }
 
     public boolean alreadyPlayedAt(int x, int y) {
-        return !tileAt(x, y).isEmpty();
+        return tileAt(x, y).isMarked();
     }
 
     private Tile tileAt(int row, int column) {
@@ -35,6 +35,6 @@ public class Board {
     }
 
     private boolean isThreeInAHorizontalRowAt(int i) {
-        return tileAt(i, 0).sameMarkAs(tileAt(i, 1)) && tileAt(i, 2).sameMarkAs(tileAt(i, 1)) && !tileAt(i, 0).isEmpty();
+        return tileAt(i, 0).sameMarkAs(tileAt(i, 1)) && tileAt(i, 2).sameMarkAs(tileAt(i, 1)) && tileAt(i, 0).isMarked();
     }
 }
