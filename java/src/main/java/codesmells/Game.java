@@ -22,7 +22,10 @@ public class Game {
     }
 
     public Mark winner() {
-        return board.threeInARow();
+        if (board.hasThreeInARow()) {
+            return lastMark;
+        }
+        return Mark.NONE;
     }
 
     private boolean isFirstPlayInvalid(Mark mark) {

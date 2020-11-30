@@ -25,21 +25,19 @@ public class Board {
         return getTile(position).isMarked();
     }
 
+    public boolean hasThreeInARow() {
+        return isThreeInARow(horizontal(0)) || isThreeInARow(horizontal(1)) || isThreeInARow(horizontal(2));
+    }
+
+    private boolean isThreeInARow(List<Tile> row) {
+        return row.get(0).isMarked() && row.stream().allMatch(t -> t.sameMarkAs(row.get(0)));
+    }
+
+    private List<Tile> horizontal(int row) {
+        return Arrays.asList(getTile(in(row, 0)), getTile(in(row, 1)), getTile(in(row, 2)));
+    }
+
     private Tile getTile(Position position) {
         return tiles.stream().filter(t -> t.isAt(position)).findFirst().orElse(null);
-    }
-
-    public Mark threeInARow() {
-        for (int row = 0; row < 3; row++) {
-            if (isThreeInAHorizontalRow(row)) return getTile(in(row, 0)).getMark();
-        }
-
-        return Mark.NONE;
-    }
-
-    private boolean isThreeInAHorizontalRow(int row) {
-        Tile firstInRow = getTile(in(row, 0));
-        List<Tile> othersInRow = Arrays.asList(getTile(in(row, 1)), getTile(in(row, 2)));
-        return firstInRow.isMarked() && othersInRow.stream().allMatch(t -> t.sameMarkAs(firstInRow));
     }
 }
