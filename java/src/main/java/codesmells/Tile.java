@@ -2,17 +2,15 @@ package codesmells;
 
 public class Tile
 {
-    private final int x;
-    private final int y;
+    private Position position;
     private Mark mark;
 
-    public static Tile empty(int x, int y) {
-        return new Tile(x, y, Mark.NONE);
+    public static Tile empty(Position position) {
+        return new Tile(position, Mark.NONE);
     }
 
-    private Tile(int x, int y, Mark mark) {
-        this.x = x;
-        this.y = y;
+    private Tile(Position position, Mark mark) {
+        this.position = position;
         this.mark = mark;
     }
 
@@ -24,8 +22,8 @@ public class Tile
         return mark;
     }
 
-    public boolean isAt(int x, int y) {
-        return this.x == x && this.y == y;
+    public boolean isAt(Position position) {
+        return this.position.equals(position);
     }
 
     public boolean sameMarkAs(Tile other) {
