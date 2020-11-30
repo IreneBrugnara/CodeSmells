@@ -4,38 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    private List<Tile> _plays = new ArrayList<>();
+    private List<Tile> tiles = new ArrayList<>();
 
     public Board() {
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                _plays.add(new Tile(x, y, ' '));
+        for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < 3; column++) {
+                tiles.add(Tile.empty(row, column));
             }
         }
     }
 
-    public Tile TileAt(int x, int y) {
-        for (Tile t : _plays) {
-            if (t.X == x && t.Y == y) {
-                return t;
-            }
-        }
-        return null;
+    public void markTileAt(Mark mark, int x, int y) {
+        tileAt(x, y).markWith(mark);
     }
 
-    public void AddTileAt(char symbol, int x, int y) {
-        TileAt(x, y).Symbol = symbol;
+    public boolean alreadyPlayedAt(int x, int y) {
+        return !tileAt(x, y).isEmpty();
     }
 
-    char threeInARow() {
+    private Tile tileAt(int row, int column) {
+        return tiles.stream().filter(t -> t.isAt(row, column)).findFirst().orElse(null);
+    }
+
+    public Mark threeInARow() {
         for (int i = 0; i < 3; i++) {
-            if (isThreeInAHorizontalRowAt(i)) return TileAt(i, 0).Symbol;
+            if (isThreeInAHorizontalRowAt(i)) return tileAt(i, 0).getMark();
         }
 
-        return ' ';
+        return Mark.NONE;
     }
 
-    boolean isThreeInAHorizontalRowAt(int i) {
-        return TileAt(i, 0).Symbol == TileAt(i, 1).Symbol && TileAt(i, 2).Symbol == TileAt(i, 1).Symbol && TileAt(i, 0).Symbol != ' ';
+    private boolean isThreeInAHorizontalRowAt(int i) {
+        return tileAt(i, 0).sameMarkAs(tileAt(i, 1)) && tileAt(i, 2).sameMarkAs(tileAt(i, 1)) && !tileAt(i, 0).isEmpty();
     }
 }

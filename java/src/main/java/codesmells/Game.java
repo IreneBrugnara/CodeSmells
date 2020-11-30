@@ -1,30 +1,30 @@
 package codesmells;
 
 public class Game {
-    private char _lastSymbol = ' ';
+    private Mark _lastSymbol = Mark.NONE;
     private Board _board = new Board();
 
-    public void Play(char symbol, int x, int y) throws Exception {
+    public void Play(Mark mark, int x, int y) throws Exception {
         //if first move
-        if (_lastSymbol == ' ') {
-            if (symbol == 'O') {
+        if (_lastSymbol == Mark.NONE) {
+            if (mark == Mark.O) {
                 throw new Exception("Invalid first player");
             }
         }
         //if not first move but player repeated
-        else if (symbol == _lastSymbol) {
+        else if (mark == _lastSymbol) {
             throw new Exception("Invalid next player");
         }
         //if not first move but play on an already played tile
-        else if (_board.TileAt(x, y).Symbol != ' ') {
+        else if (_board.alreadyPlayedAt(x, y)) {
             throw new Exception("Invalid position");
         }
 
-        _lastSymbol = symbol;
-        _board.AddTileAt(symbol, x, y);
+        _lastSymbol = mark;
+        _board.markTileAt(mark, x, y);
     }
 
-    public char Winner() {
+    public Mark Winner() {
         return _board.threeInARow();
     }
 
