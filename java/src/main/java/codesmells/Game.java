@@ -7,7 +7,6 @@ public class Game {
     public void Play(char symbol, int x, int y) throws Exception {
         //if first move
         if (_lastSymbol == ' ') {
-            //if player is X
             if (symbol == 'O') {
                 throw new Exception("Invalid first player");
             }
@@ -21,7 +20,6 @@ public class Game {
             throw new Exception("Invalid position");
         }
 
-        // update game state
         _lastSymbol = symbol;
         _board.AddTileAt(symbol, x, y);
     }
