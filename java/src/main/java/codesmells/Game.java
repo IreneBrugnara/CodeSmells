@@ -5,6 +5,13 @@ public class Game {
     private Board board = new Board();
 
     public void play(Mark mark, int x, int y) throws Exception {
+        checkMove(mark, x, y);
+        
+        lastMark = mark;
+        board.markTileAt(mark, x, y);
+    }
+
+    private void checkMove(Mark mark, int x, int y) throws Exception {
         if (isFirstPlayInvalid(mark)) {
             throw new Exception("Invalid first player");
         } else if (isRepeatedPlay(mark)) {
@@ -12,9 +19,6 @@ public class Game {
         } else if (board.alreadyPlayedAt(x, y)) {
             throw new Exception("Invalid position");
         }
-
-        lastMark = mark;
-        board.markTileAt(mark, x, y);
     }
 
     public Mark winner() {
