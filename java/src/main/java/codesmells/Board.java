@@ -36,4 +36,16 @@ public class Board
     {
         TileAt(x,y).Symbol = symbol;
     }
+
+    char threeInARow() {
+        for (int i = 0; i < 3; i++) {
+            if (isThreeInAHorizontalRowAt(i)) return TileAt(i, 0).Symbol;
+        }
+
+        return ' ';
+    }
+
+    boolean isThreeInAHorizontalRowAt(int i) {
+        return TileAt(i, 0).Symbol == TileAt(i, 1).Symbol && TileAt(i, 2).Symbol == TileAt(i, 1).Symbol && TileAt(i, 0).Symbol != ' ';
+    }
 }
