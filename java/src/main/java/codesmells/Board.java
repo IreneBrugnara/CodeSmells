@@ -31,8 +31,11 @@ public class Board
 
     public void AddTileAt(char symbol, int x, int y)
     {
-        Tile newTile = new Tile(x, y, symbol);
+        TileAt(x, y).setSymbol(symbol);
+    }
 
-        TileAt(x,y).Symbol = symbol;
+
+    char SymbolAt(int x, int y) {
+        return TileAt(x, y).getSymbol();
     }
 }
